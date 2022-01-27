@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4488816128273042012}
   - component: {fileID: 4488816128211902995}
   - component: {fileID: 4488816128211902999}
+  - component: {fileID: 6530333550776847929}
   m_Layer: 0
   m_Name: Asteroid_01_S
   m_TagString: asteroid
@@ -27,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4488816128275043484}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 69, z: 0}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_Children: []
@@ -111,3 +112,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.2
   explosion: {fileID: 1000011797152326, guid: 5ec974fd3e3aa0549bf654a6bd3ead30, type: 3}
+--- !u!111 &6530333550776847929
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4488816128275043484}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 2dfb13d7b7b521e48a6160a1cea2a859, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 2dfb13d7b7b521e48a6160a1cea2a859, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
