@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class gameover : MonoBehaviour
 {
+    public GameObject hp;
     public GameObject explosion;
+    public GameObject overimage;
     void Start()
     {
         
@@ -14,13 +17,17 @@ public class gameover : MonoBehaviour
     {
         
     }
-
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.collider.tag == "asteroid")
+        if (other.tag == "asteroid" || other.tag == "Enemy")
         {
-            Instantiate(explosion);
-            Destroy(gameObject);
+            hp.GetComponent<Image>().fillAmount -= 0.1f;
+            if(hp.GetComponent<Image>().fillAmount == 0)
+            {
+                GameObject go = Instantiate(explosion);
+                Destroy(gameObject);
+                overimage.GetComponent<Image>().color = new Color32(255, 255, 225, 255);
+            }
         }
     }
 }

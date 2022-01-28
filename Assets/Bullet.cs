@@ -8,12 +8,14 @@ public class Bullet : MonoBehaviour
     
     void Start()
     {
-        Destroy(gameObject, 1);
+
     }
 
     
     void Update()
     {
+        if (transform.position.y > 80)
+            Destroy(gameObject);
         transform.Translate(Vector3.up * speed);
     }
 }

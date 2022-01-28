@@ -36,7 +36,7 @@ public class Playercontroll : MonoBehaviour
     {
         spawn_R.GetComponent<SwpanBullet>().Fire();
         spawn_L.GetComponent<SwpanBullet>().Fire();
-        Invoke("Fire",0.1f);
+        Invoke("Fire",0.2f);
 
     }
 

@@ -20,8 +20,8 @@ public class SpwanAsteroid : MonoBehaviour
 
     void make()
     {
-        transform.position = new Vector3(Random.Range(-50, 50), 80, 0);
-        GameObject go = Instantiate(meteors[0]);
+        transform.position = new Vector3(Random.Range(-35, 35), 80, 0);
+        GameObject go = Instantiate(meteors[Random.Range(0, meteors.Length)]);
         go.transform.position = transform.position;
         Invoke("make", 0.5f);
 
