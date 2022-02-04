@@ -6,6 +6,7 @@ public class BulletE : MonoBehaviour
 {
     public float speed;
     public GameObject explosion;
+    public GameObject small_explosion;
 
     void Start()
     {
@@ -31,6 +32,8 @@ public class BulletE : MonoBehaviour
         }
         if(other.tag == "Player")
         {
+            GameObject goo = Instantiate(small_explosion);
+            goo.transform.position = transform.position;
             Destroy(gameObject);
         }
     }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1733825923940223378}
   m_Layer: 0
   m_Name: BulletE
-  m_TagString: Enemy
+  m_TagString: Enemybullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -127,3 +127,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.5
   explosion: {fileID: 5496804165355245715, guid: fa1f85c9993824943b6ff86857478f4a, type: 3}
+  small_explosion: {fileID: 216684326672813543, guid: 1a95502597d78564bb432a83e69321de, type: 3}
