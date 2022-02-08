@@ -9776,6 +9776,7 @@ GameObject:
   - component: {fileID: 125312765808955773}
   - component: {fileID: 126278682582978147}
   - component: {fileID: -5680764728890207593}
+  - component: {fileID: -4805788881657149162}
   m_Layer: 0
   m_Name: PlasmaExplosionEffect
   m_TagString: Untagged
@@ -14604,6 +14605,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-4805788881657149162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216684326672813543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b66d385482e04fb4a876c96a92b951a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delaytime: 5
 --- !u!1 &216684327153065381
 GameObject:
   m_ObjectHideFlags: 0

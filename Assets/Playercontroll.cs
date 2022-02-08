@@ -8,14 +8,17 @@ public class Playercontroll : MonoBehaviour
     bool isright;
     public float speed;
     public GameObject spawn_R;
+    public GameObject spawn0_R;
     public GameObject spawn_2_R;
-    public GameObject spawn_L;
     public GameObject spawn_2_L;
+    public GameObject spawn0_L;
+    public GameObject spawn_L;
+    public GameObject spawn_3;
     public float bulletspeed;
 
     void Start()
     {
-        bulletspeed = 0.2f;
+        bulletspeed = 0.15f;
         Fire();
     }
 
@@ -40,17 +43,30 @@ public class Playercontroll : MonoBehaviour
     }
     void Fire()
     {
-        if (GameManager.instance.score <= 2000)
+        if (GameManager.instance.round == 0)
         {
             spawn_R.GetComponent<SwpanBullet>().Fire();
             spawn_L.GetComponent<SwpanBullet>().Fire();
         }
-        if (GameManager.instance.score >= 2000)
+        else if (GameManager.instance.round == 1)
+        {
+            spawn0_R.GetComponent<SwpanBullet>().Fire();
+            spawn0_L.GetComponent<SwpanBullet>().Fire();
+        }
+        else if(GameManager.instance.round == 2)
         {
             spawn_R.GetComponent<SwpanBullet>().Fire();
             spawn_L.GetComponent<SwpanBullet>().Fire();
             spawn_2_R.GetComponent<SwpanBullet>().Fire();
             spawn_2_L.GetComponent<SwpanBullet>().Fire();
+        }
+        else if (GameManager.instance.round == 3)
+        {
+            spawn_R.GetComponent<SwpanBullet>().Fire();
+            spawn_L.GetComponent<SwpanBullet>().Fire();
+            spawn_2_R.GetComponent<SwpanBullet>().Fire();
+            spawn_2_L.GetComponent<SwpanBullet>().Fire();
+            spawn_3.GetComponent<SwpanBullet>().Fire();
         }
         Invoke("Fire", bulletspeed);
 

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class Ememy : MonoBehaviour
 {
-    Vector3 pos; //현재위치
     float rightMax = 25.0f; //좌로 이동가능한 (x)최대값
     float leftMax = -25.0f; //우로 이동가능한 (x)최대값
     float currentPosition; //현재 위치(x) 저장
@@ -25,7 +24,7 @@ public class Ememy : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         Fire();
-        pos = transform.position;
+        currentPosition = transform.position.x;
     }
     // Update is called once per frame
     void Update()
@@ -41,7 +40,7 @@ public class Ememy : MonoBehaviour
             }
             else if (currentPosition >= rightMax)
             {
-                direction = Random.Range(15, 60);
+                direction = Random.Range(15, 40);
                 direction *= -1;
                 rightMax = currentPosition;
             }
@@ -55,7 +54,7 @@ public class Ememy : MonoBehaviour
         spawn_R.GetComponent<SwpanBullet>().Fire();
         spawn_L.GetComponent<SwpanBullet>().Fire();
         if (GameManager.instance.isGameOver == false)
-            Invoke("Fire", 0.2f);
+            Invoke("Fire", 0.1f);
     }
 
     private void OnTriggerEnter(Collider other)

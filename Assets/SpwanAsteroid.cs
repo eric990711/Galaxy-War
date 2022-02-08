@@ -25,7 +25,7 @@ public class SpwanAsteroid : MonoBehaviour
 
         go.transform.position = transform.position;
 
-        if (GameManager.instance.isGameWon == false)
+        if (GameManager.instance.isGameDone == false)
             Invoke("make", 0.5f);
     }
 }

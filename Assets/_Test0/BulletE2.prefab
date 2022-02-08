@@ -125,6 +125,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 241e9e6a7bedffd4b82605da63871817, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 1.5
   explosion: {fileID: 5496804165355245715, guid: fa1f85c9993824943b6ff86857478f4a, type: 3}
   small_explosion: {fileID: 216684326672813543, guid: 1a95502597d78564bb432a83e69321de, type: 3}
