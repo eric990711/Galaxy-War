@@ -43,11 +43,19 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         instance = this;
         DontDestroyOnLoad(gameObject);
 
-        _gameId = (Application.platform == RuntimePlatform.IPhonePlayer)
-                  ? GAME_ID_IOS
-                  : GAME_ID_ANDROID;
+        try
+        {
+            _gameId = (Application.platform == RuntimePlatform.IPhonePlayer)
+                      ? GAME_ID_IOS
+                      : GAME_ID_ANDROID;
 
-        Advertisement.Initialize(_gameId, TEST_MODE, this);
+            Debug.Log($"[AdManager] 초기화 시작 - GameID: {_gameId}, TestMode: {TEST_MODE}");
+            Advertisement.Initialize(_gameId, TEST_MODE, this);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"[AdManager] Awake 예외 발생: {e.Message}\n{e.StackTrace}");
+        }
     }
 
     // ──────────────────────────────────────────────────────────
