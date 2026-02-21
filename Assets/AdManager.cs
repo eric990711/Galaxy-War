@@ -17,8 +17,8 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     // ──────────────────────────────────────────────────────────
     // TODO: Unity Dashboard에서 발급받은 ID로 교체하세요
     // dashboard.unity3d.com → Monetization → Projects → 해당 프로젝트
-    private const string GAME_ID_ANDROID = "YOUR_ANDROID_GAME_ID";
-    private const string GAME_ID_IOS     = "YOUR_IOS_GAME_ID";
+    private const string GAME_ID_ANDROID = "6050514";
+    private const string GAME_ID_IOS     = "";
     private const string AD_UNIT_ID      = "Interstitial_Android"; // Android 기본값
     // ──────────────────────────────────────────────────────────
 
