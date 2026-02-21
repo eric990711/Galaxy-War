@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class Enemy1_2 : MonoBehaviour
 {
-    float rightMax = 25.0f; //ÁÂ·Î ÀÌµ¿°¡´ÉÇÑ (x)ÃÖ´ë°ª
-    float leftMax = -25.0f; //¿ì·Î ÀÌµ¿°¡´ÉÇÑ (x)ÃÖ´ë°ª
-    float currentPosition; //ÇöÀç À§Ä¡(x) ÀúÀå
+    float rightMax = 25.0f; //ï¿½Â·ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (x)ï¿½Ö´ë°ª
+    float leftMax = -25.0f; //ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (x)ï¿½Ö´ë°ª
+    float currentPosition; //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡(x) ï¿½ï¿½ï¿½ï¿½
     float direction = 15;
     public GameObject spawn_R;
     public GameObject spawn_L;
@@ -52,10 +52,11 @@ public class Enemy1_2 : MonoBehaviour
 
     void Fire()
     {
+        if (!gameObject.activeInHierarchy) return;
         spawn_R.GetComponent<SwpanBullet>().Fire();
         spawn_L.GetComponent<SwpanBullet>().Fire();
         spawn_2.GetComponent<SwpanBullet>().Fire();
-        if (GameManager.instance.isGameOver == false)
+        if (GameManager.instance.isGameOver == false && GameManager.instance.isGameDone == false)
             Invoke("Fire", 0.1f);
     }
 
