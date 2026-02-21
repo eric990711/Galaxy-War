@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -91,17 +92,30 @@ public class GameManager : MonoBehaviour
 
     public void isGamelost()
     {
-        final_score.SetActive(true);
-        final_score.GetComponent<Text>().text = t_score.text + " points";
-        playagain.SetActive(true);
         isGameDone = true;
         if (round == 0)
             enemys[round].SetActive(false);
         else if (round == 1)
             enemys[round].SetActive(false);
+
+        // 광고를 먼저 보여주고, 광고 완료 후 ShowGameOverUI() 호출
+        if (AdManager.instance != null)
+        {
+            AdManager.instance.ShowInterstitialAd(ShowGameOverUI);
+        }
+        else
+        {
+            ShowGameOverUI();
+        }
+    }
+
+    public void ShowGameOverUI()
+    {
+        final_score.SetActive(true);
+        final_score.GetComponent<Text>().text = t_score.text + " points";
+        playagain.SetActive(true);
         gamelost.SetActive(true);
         gamelost.GetComponent<Image>().color = new Color32(255, 255, 225, 255);
-
     }
 
 
@@ -154,6 +168,6 @@ public class GameManager : MonoBehaviour
 
     public void Play_again()
     {
-        Application.LoadLevel(0);
+        SceneManager.LoadScene(0);
     }
 }
