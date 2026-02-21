@@ -28,45 +28,37 @@ public class GameManager : MonoBehaviour
     public GameObject newgamebutton;
     public GameObject gamename;
     public GameObject timeguage;
+
     public static GameManager instance
     {
-        get
-        {
-            return _instance;
-        }
+        get { return _instance; }
     }
 
     void Start()
     {
         if (instance == null)
-        {
             _instance = this;
-        }
         else
-        {
             Destroy(gameObject);
-        }
     }
 
-    private void Update()
-    {
+    private void Update() { }
 
-    }
-
+    // 게임 시작 시 모든 상태 초기화
     public void INTI()
     {
-        playercontrol.SetActive(true);
-        spawnmeteor.SetActive(true);
-        score = 0;
         round = 0;
+        score = 0;
         isGameOver = false;
         isGameDone = false;
         isGameWin = false;
         isGameWon = false;
+
+        playercontrol.SetActive(true);
+        spawnmeteor.SetActive(true);
         t_score.text = "" + score;
         gamewin.GetComponent<Image>().color = new Vector4(1, 1, 1, 0);
 
-        // 모든 보스/HP바/클리어 문구 비활성화
         for (int i = 0; i < enemys.Length; i++)
         {
             enemys[i].SetActive(false);
@@ -77,7 +69,7 @@ public class GameManager : MonoBehaviour
             bosswin[i].SetActive(false);
         }
 
-        GamePlay();
+        StartRound();
     }
 
     public void GetScore()
@@ -85,22 +77,63 @@ public class GameManager : MonoBehaviour
         t_score.text = "" + score;
     }
 
+    // 현재 round의 보스를 활성화하고 시작
+    void StartRound()
+    {
+        // 혹시 모를 이전 보스 전부 끄기
+        for (int i = 0; i < enemys.Length; i++)
+        {
+            enemys[i].SetActive(false);
+            enemy_hps[i].SetActive(false);
+        }
+
+        enemys[round].SetActive(true);
+        enemy_hps[round].SetActive(true);
+        StartCoroutine(enemyPlay());
+    }
+
+    // 1초 후 현재 round 보스 움직임/공격 시작
+    IEnumerator enemyPlay()
+    {
+        yield return new WaitForSeconds(1);
+
+        // 비활성화 됐거나 게임 끝났으면 무시
+        if (isGameDone) yield break;
+        if (!enemys[round].activeInHierarchy) yield break;
+
+        if (round == 0)
+            enemys[round].GetComponent<Ememy>().isEnemyPlay = true;
+        else if (round == 1)
+            enemys[round].GetComponent<Enemy1_2>().isEnemyPlay = true;
+        else if (round == 2)
+            enemys[round].GetComponent<Enemy1_3>().isEnemyPlay = true;
+        else if (round == 3)
+            enemys[round].GetComponent<Enemy2>().isEnemyPlay = true;
+    }
+
+    // 보스 처치 시 호출
     public void GameWin()
     {
-        // 직전 보스와 HP바 비활성화
-        enemys[round].SetActive(false);
-        enemy_hps[round].SetActive(false);
+        if (isGameDone) return; // 중복 호출 방지
 
-        round++;
+        isGameOver = true;
+
+        int clearedRound = round; // 방금 잡은 보스 인덱스 저장
+
+        // 잡은 보스와 HP바 즉시 비활성화
+        enemys[clearedRound].SetActive(false);
+        enemy_hps[clearedRound].SetActive(false);
+
+        round++; // 다음 라운드로
 
         if (round < enemys.Length)
         {
-            // 중간 보스 클리어 → 클리어 문구 보여주고 다음 라운드
-            StartCoroutine(nextRound());
+            // 아직 보스가 남아있음 → 클리어 문구 보여주고 다음 라운드
+            StartCoroutine(nextRound(clearedRound));
         }
         else
         {
-            // 최종 보스 클리어 → 게임 완료
+            // 모든 보스 처치 → 게임 클리어
             isGameDone = true;
             isGameWon = true;
             final_score.SetActive(true);
@@ -111,26 +144,49 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // clearedRound = 방금 잡은 보스 인덱스
+    IEnumerator nextRound(int clearedRound)
+    {
+        // 클리어 문구 표시
+        if (clearedRound < bosswin.Length)
+        {
+            bosswin[clearedRound].SetActive(true);
+            bosswin[clearedRound].GetComponent<Image>().color = new Vector4(1, 1, 1, 1);
+        }
+
+        yield return new WaitForSeconds(1);
+
+        // 문구 숨기기
+        if (clearedRound < bosswin.Length)
+        {
+            bosswin[clearedRound].GetComponent<Image>().color = new Vector4(1, 1, 1, 0);
+            bosswin[clearedRound].SetActive(false);
+        }
+
+        // 다음 보스 시작
+        isGameOver = false;
+        StartRound();
+    }
+
+    // 플레이어 사망 시 호출
     public void isGamelost()
     {
+        if (isGameDone) return; // 중복 호출 방지
+
         isGameDone = true;
 
-        // 현재 라운드 보스와 HP바 비활성화 (모든 라운드 대응)
+        // 모든 보스 비활성화
         for (int i = 0; i < enemys.Length; i++)
         {
             enemys[i].SetActive(false);
             enemy_hps[i].SetActive(false);
         }
 
-        // 광고를 먼저 보여주고, 광고 완료 후 ShowGameOverUI() 호출
+        // 광고 먼저, 완료 후 게임오버 UI
         if (AdManager.instance != null)
-        {
             AdManager.instance.ShowInterstitialAd(ShowGameOverUI);
-        }
         else
-        {
             ShowGameOverUI();
-        }
     }
 
     public void ShowGameOverUI()
@@ -142,47 +198,10 @@ public class GameManager : MonoBehaviour
         gamelost.GetComponent<Image>().color = new Color32(255, 255, 225, 255);
     }
 
+    // 구버전 호환용 (씬에서 버튼이 이 함수를 참조할 경우 대비)
     public void GamePlay()
     {
-        for (int i = 0; i < enemys.Length; i++)
-        {
-            enemys[i].SetActive(false);
-            enemy_hps[i].SetActive(false);
-        }
-        enemys[round].SetActive(true);
-        enemy_hps[round].SetActive(true);
-        StartCoroutine(enemyPlay());
-    }
-
-    IEnumerator enemyPlay()
-    {
-        yield return new WaitForSeconds(1);
-        if (round == 0)
-            enemys[round].GetComponent<Ememy>().isEnemyPlay = true;
-        else if (round == 1)
-            enemys[round].GetComponent<Enemy1_2>().isEnemyPlay = true;
-        else if (round == 2)
-            enemys[round].GetComponent<Enemy1_3>().isEnemyPlay = true;
-        else if (round == 3)
-            enemys[round].GetComponent<Enemy2>().isEnemyPlay = true;
-    }
-
-    IEnumerator nextRound()
-    {
-        // 클리어 문구 표시 (round는 이미 증가된 상태 → round-1이 방금 잡은 보스)
-        int clearedRound = round - 1;
-        bosswin[clearedRound].SetActive(true);
-        bosswin[clearedRound].GetComponent<Image>().color = new Vector4(1, 1, 1, 1);
-        yield return new WaitForSeconds(1);
-        bosswin[clearedRound].GetComponent<Image>().color = new Vector4(1, 1, 1, 0);
-        bosswin[clearedRound].SetActive(false);
-
-        // 상태 리셋 후 다음 보스 활성화
-        isGameOver = false;
-        isGameWin = false;
-        enemys[round].SetActive(true);
-        enemy_hps[round].SetActive(true);
-        StartCoroutine(enemyPlay());
+        StartRound();
     }
 
     public void Game_started()
