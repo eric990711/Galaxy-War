@@ -26,6 +26,7 @@ public class Enemy2 : MonoBehaviour
     }
     private void OnEnable()
     {
+        isEnemyPlay = false;
         StartCoroutine(enemyStart());
     }
     IEnumerator enemyStart()

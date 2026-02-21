@@ -17,8 +17,11 @@ public class Enemy1_2 : MonoBehaviour
     public GameObject explosion;
     public bool isEnemyPlay;
     int gamescore = 0;
-    void Start()
+    void Start() { }
+
+    private void OnEnable()
     {
+        isEnemyPlay = false;
         StartCoroutine(enemyStart());
     }
     IEnumerator enemyStart()
