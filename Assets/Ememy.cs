@@ -71,13 +71,16 @@ public class Ememy : MonoBehaviour
     {
         if (other.tag == "bullet")
         {
+            if (GameManager.instance.isGameOver || GameManager.instance.isGameDone) return;
+
             enemy_hp_0.GetComponent<Image>().fillAmount -= 0.005f;
 
             GameManager.instance.score += 10;
             GameManager.instance.GetScore();
 
-            if (enemy_hp_0.GetComponent<Image>().fillAmount == 0)
+            if (enemy_hp_0.GetComponent<Image>().fillAmount <= 0)
             {
+                enemy_hp_0.GetComponent<Image>().fillAmount = 0;
                 enemy_hp.GetComponent<Image>().fillAmount = 0;
                 GameManager.instance.isGameOver = true;
                 GameManager.instance.GameWin();

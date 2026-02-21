@@ -80,16 +80,19 @@ public class Enemy2 : MonoBehaviour
     {
         if (other.tag == "bullet")
         {
+            if (GameManager.instance.isGameOver || GameManager.instance.isGameDone) return;
+
             enemy2_hp_0.GetComponent<Image>().fillAmount -= 0.001f;
 
             GameManager.instance.score += 10;
             GameManager.instance.GetScore();
 
-            if (enemy2_hp_0.GetComponent<Image>().fillAmount == 0)
+            if (enemy2_hp_0.GetComponent<Image>().fillAmount <= 0)
             {
                 float times = GameManager.instance.timeguage.GetComponent<Image>().fillAmount;
                 GameManager.instance.score += (int)(times * 1000);
                 GameManager.instance.GetScore();
+                enemy2_hp_0.GetComponent<Image>().fillAmount = 0;
                 enemy2_hp.GetComponent<Image>().fillAmount = 0;
                 GameManager.instance.isGameOver = true;
                 GameManager.instance.GameWin();
