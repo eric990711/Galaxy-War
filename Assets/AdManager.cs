@@ -22,7 +22,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     private const string AD_UNIT_ID      = "Interstitial_Android"; // Android 기본값
     // ──────────────────────────────────────────────────────────
 
-    private const bool TEST_MODE = true; // 출시 전까지 true 유지. 출시 시 false로 변경
+    private const bool TEST_MODE = false; // 출시 전까지 true 유지. 출시 시 false로 변경
     private const int  AD_RETRY_DELAY = 30; // 광고 로드 실패 시 재시도 간격(초)
 
     public static AdManager instance { get; private set; }
