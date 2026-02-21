@@ -150,11 +150,12 @@ public class GameManager : MonoBehaviour
         bosswin[round-1].GetComponent<Image>().color = new Vector4(1, 1, 1, 1);
         yield return new WaitForSeconds(1);
         bosswin[round-1].GetComponent<Image>().color = new Vector4(1, 1, 1, 0);
-        StartCoroutine(enemyPlay());
+        bosswin[round-1].SetActive(false);
 
         isGameOver = false;
         enemys[round].SetActive(true);
         enemy_hps[round].SetActive(true);
+        StartCoroutine(enemyPlay());
     }
 
     public void Game_started()
