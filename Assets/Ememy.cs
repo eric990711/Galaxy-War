@@ -21,6 +21,12 @@ public class Ememy : MonoBehaviour
     private void OnEnable()
     {
         isEnemyPlay = false;
+        rightMax = 25.0f;
+        leftMax = -25.0f;
+        direction = 15;
+        currentPosition = 0;
+        enemy_hp.GetComponent<Image>().fillAmount = 1;
+        enemy_hp_0.GetComponent<Image>().fillAmount = 1;
         StartCoroutine(enemyStart());
     }
     IEnumerator enemyStart()
